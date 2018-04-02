@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import contextlib
-
+import random
 
 arr = []
 x0 = []
@@ -45,8 +45,8 @@ with contextlib.closing(kmeans("TrainsetTugas2.txt"))as berkas:
     data = berkas.brks.readlines()
     for x in data:
         brs = x.split()
-        x0.append([float(brs[0])])
-        y0.append([float(brs[1])])
+        x0.append([float(brs[0]),float(brs[1])])
+        # y0.append([float(brs[1])])
     attr += 1
 
 with contextlib.closing(kmeans("TestsetTugas2.txt"))as berkas:
@@ -59,18 +59,21 @@ with contextlib.closing(kmeans("TestsetTugas2.txt"))as berkas:
 
 for i in range(len(x0)):
     x0.append(np.array(x0[i]))
-    y0.append(np.array(y0[i]))
+    # y0.append(np.array(y0[i]))
 
-print("Atribut X=",x0)
-print("Atribut Y=",y0)
+print(random.choice(x0))
 
-graf = plt.figure()
-graf.canvas.set_window_title('Visualisasi Data Training')
-data = graf.add_subplot(111)
-data.set_xlabel('Attr 1')
-data.set_ylabel('Attr 2')
-data.scatter(x0,y0, c='black', marker='+')
-plt.show()
 
-berkas.brks.close()
+# print("Atribut X=",x0)
+# print("Atribut Y=",y0)
+#
+# graf = plt.figure()
+# graf.canvas.set_window_title('Visualisasi Data Training')
+# data = graf.add_subplot(111)
+# data.set_xlabel('Attr 1')
+# data.set_ylabel('Attr 2')
+# data.scatter(x0,y0, c='black', marker='+')
+# plt.show()
+#
+# berkas.brks.close()
 
