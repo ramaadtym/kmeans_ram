@@ -8,6 +8,7 @@ arr = []
 x0 = []
 y0 = []
 titik = []
+centroid = []
 x1 = []
 y1 = []
 attr = 0
@@ -23,7 +24,7 @@ class kmeans:
             self.brks = None
 
 
-with contextlib.closing(kmeans("TrainsetTugas2.txt"))as berkas:
+with contextlib.closing(kmeans("datakecil.txt"))as berkas:
     data = berkas.brks.readlines()
     for x in data:
         brs = x.split()
@@ -42,22 +43,23 @@ with contextlib.closing(kmeans("TrainsetTugas2.txt"))as berkas:
 #     attr += 1
 
 #asumsi k = 2
-c1 = random.choice(titik)
-c2 = random.choice(titik)
-print("Centroid 1 = ", c1)
-print("Centroid 2 = ", c2)
-#
-# x = (c1[0]-c2[0])**2 + (c1[1]-c2[1])**2
-# print(x)
+# c1 = random.choice(titik)
+# c2 = random.choice(titik)
+# print("Centroid 1 = ", c1)
+# print("Centroid 2 = ", c2)
+
+k = random.randint(2,5)
+print(k)
 
 #iterasi 1
-for i in range(len(titik)):
-    a = titik[i][0]
-    b = titik[i][1]
-    jrkC1 = (a - c1[0])**2 +  (b - c1[1])**2
-    jrkC2 = (a - c2[0])**2 +  (b - c2[1])**2
-    print("Jarak titik ke centroid 1 = ", jrkC1)
-    print("Jarak titik ke centroid 2 = ", jrkC2)
+for t in range(k):
+    centroid = random.choice(titik)
+    print(centroid)
+    for i in range(len(titik)):
+        a = titik[i][0]
+        b = titik[i][1]
+        jrkC1 = (a - centroid[0])**2 +  (b - centroid[1])**2
+        print("Jarak titik ke centroid ke kelas",t+1,"= ", jrkC1)
 
 
 # graf = plt.figure()
