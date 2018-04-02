@@ -59,17 +59,20 @@ for t in range(k):
     getCentroid = random.choice(titik)
     centroid.append(getCentroid)
     print("Centroid ke-",t+1,getCentroid)
-
-    for i in range(len(titik)):
-        a = titik[i][0]
-        b = titik[i][1]
-        jarak = (a - centroid[0][0])**2 +  (b - centroid[0][1])**2
-        jarak2 = (a - centroid[0][0])**2 +  (b - centroid[0][0])**2
-        if jarak <  jarak2:
-            kelas = "Kelas 1"
-        else:
-            kelas = "kelas 2"
-        print("Data ke-",i+1,"|",jarak,"|",jarak2," | Titik Terdekat ", min(jarak, jarak2),"|",kelas)
+print(centroid)
+# print(centroid[0][0])
+# print(centroid[0][1])
+# print(centroid[1][0])
+for i in range(len(titik)):
+    a = titik[i][0]
+    b = titik[i][1]
+    jarak = (a - centroid[0][0])**2 +  (b - centroid[0][1])**2
+    jarak2 = (a - centroid[1][0])**2 +  (b - centroid[1][1])**2
+    if jarak <  jarak2:
+        kelas = "Kelas 1"
+    else:
+        kelas = "kelas 2"
+    print("Data ke-",i,"|",jarak,"|",jarak2," | Titik Terdekat ", min(jarak, jarak2),"|",kelas)
 # print("nilai min",min(jrk))
 
 
