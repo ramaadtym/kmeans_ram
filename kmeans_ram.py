@@ -41,14 +41,23 @@ with contextlib.closing(kmeans("TrainsetTugas2.txt"))as berkas:
 #         y1.append([float(brs[1])])
 #     attr += 1
 
+#asumsi k = 2
 c1 = random.choice(titik)
 c2 = random.choice(titik)
 print("Centroid 1 = ", c1)
 print("Centroid 2 = ", c2)
+#
+# x = (c1[0]-c2[0])**2 + (c1[1]-c2[1])**2
+# print(x)
 
-# for i in range(len(titik)):
-# hitung pake euclid
-
+#iterasi 1
+for i in range(len(titik)):
+    a = titik[i][0]
+    b = titik[i][1]
+    jrkC1 = (a - c1[0])**2 +  (b - c1[1])**2
+    jrkC2 = (a - c2[0])**2 +  (b - c2[1])**2
+    print("Jarak titik ke centroid 1 = ", jrkC1)
+    print("Jarak titik ke centroid 2 = ", jrkC2)
 
 
 # graf = plt.figure()
