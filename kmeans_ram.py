@@ -9,6 +9,8 @@ x0 = []
 y0 = []
 titik = []
 centroid = []
+minx = []
+miny = []
 x1 = []
 y1 = []
 attr = 0
@@ -48,18 +50,34 @@ with contextlib.closing(kmeans("datakecil.txt"))as berkas:
 # print("Centroid 1 = ", c1)
 # print("Centroid 2 = ", c2)
 
-k = random.randint(2,5)
+# k = random.randint(2,5)
+k = 2
 print(k)
 
 #iterasi 1
 for t in range(k):
-    centroid = random.choice(titik)
-    print(centroid)
+    getCentroid = random.choice(titik)
+    centroid.append(getCentroid)
+    print("Centroid ke-",t+1,getCentroid)
+
     for i in range(len(titik)):
         a = titik[i][0]
         b = titik[i][1]
-        jrkC1 = (a - centroid[0])**2 +  (b - centroid[1])**2
-        print("Jarak titik ke centroid ke kelas",t+1,"= ", jrkC1)
+        jarak = (a - centroid[0][0])**2 +  (b - centroid[0][1])**2
+        jarak2 = (a - centroid[0][0])**2 +  (b - centroid[0][0])**2
+        if jarak <  jarak2:
+            kelas = "Kelas 1"
+        else:
+            kelas = "kelas 2"
+        print("Data ke-",i+1,"|",jarak,"|",jarak2," | Titik Terdekat ", min(jarak, jarak2),"|",kelas)
+# print("nilai min",min(jrk))
+
+
+    # for i in range(len(titik)):
+    #     a = titik[i][0]
+    #     b = titik[i][1]
+    #     jrkC1 = (a - centroid[0])**2 +  (b - centroid[1])**2
+    #     print("Jarak titik ke centroid ke kelas",t+1,"= ", jrkC1)
 
 
 # graf = plt.figure()
