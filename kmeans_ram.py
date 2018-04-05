@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
+# import pandas as pd
 import contextlib
 import random
 
@@ -9,13 +9,12 @@ x0 = []
 y0 = []
 titik = []
 centroid = []
-minx = []
-miny = []
-jarak = []
+# minx = []
+# miny = []
 sse = []
 jSSE = []
 attr = 0
-
+klaster = []
 
 class kmeans:
     def __init__(self, file):
@@ -47,16 +46,25 @@ for t in range(k):
     # print("Centroid ke-",t+1,getCentroid)
 g = 0
 i = 0
+# print (centroid)
+
+jarak = [[] for i in range (k)]
 
 for i in range(len(titik)):
     a = titik[i][0]
     b = titik[i][1]
     for g in range(k):
-        jarak.append((a - centroid[g][0]) ** 2 + (b - centroid[g][1]) ** 2)
+        jarak[g].append((a - centroid[g][0]) ** 2 + (b - centroid[g][1]) ** 2)
         g += 1
-    sse.append(min(jarak[i],jarak[i+1]))
-#     print(sse)
-#     print(sum(sse))
+
+klaster = []
+for i in range (len(jarak[0])):
+    klaster.append([titik[i][0],titik[i][1],[jarak[0][i],jarak[1][i]].index(min([jarak[0][i],jarak[1][i]]))])
+print (klaster)
+
+#     sse.append(min(jarak[i],jarak[i+1]))
+# print(sse)
+# print(sum(sse))
 #     jSSE.append(sum(sse))
 # print(jSSE)
 # print(min(jSSE))
