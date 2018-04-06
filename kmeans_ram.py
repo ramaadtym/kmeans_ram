@@ -9,12 +9,9 @@ x0 = []
 y0 = []
 titik = []
 centroid = []
-# minx = []
-# miny = []
-sse = []
+
 jSSE = []
 attr = 0
-klaster = []
 
 class kmeans:
     def __init__(self, file):
@@ -26,8 +23,8 @@ class kmeans:
             self.brks = None
 
 
-# with contextlib.closing(kmeans("TrainsetTugas2.txt"))as berkas:
-with contextlib.closing(kmeans("datakecil.txt"))as berkas:
+with contextlib.closing(kmeans("TrainsetTugas2.txt"))as berkas:
+# with contextlib.closing(kmeans("datakecil.txt"))as berkas:
     data = berkas.brks.readlines()
     for x in data:
         brs = x.split()
@@ -36,45 +33,69 @@ with contextlib.closing(kmeans("datakecil.txt"))as berkas:
         y0.append([float(brs[1])])
     attr += 1
     berkas.brks.close()
-k = 2
-print(k)
+
+k = 7
 
 #iterasi 1
 for t in range(k):
     getCentroid = random.choice(titik)
     centroid.append(getCentroid)
-    # print("Centroid ke-",t+1,getCentroid)
+
+
+print (centroid)
+
 g = 0
 i = 0
 # print (centroid)
+for iterasi in range(100):
+    jarak = [[] for i in range (k)]
 
-jarak = [[] for i in range (k)]
+    sse = 0
+    for i in range(len(titik)):
+        a = titik[i][0]
+        b = titik[i][1]
+        for g in range(k):
+            jarak[g].append(np.sqrt((a - centroid[g][0]) ** 2 + (b - centroid[g][1]) ** 2))
+    for i in range(len(jarak)):
+        sse += sum(jarak[i])
 
-for i in range(len(titik)):
-    a = titik[i][0]
-    b = titik[i][1]
-    for g in range(k):
-        jarak[g].append((a - centroid[g][0]) ** 2 + (b - centroid[g][1]) ** 2)
-        g += 1
+    jaraktranspos = np.transpose(jarak)
+    klaster = []
+    for i in range (len(jarak[0])):
+        jarakmin = jaraktranspos[i].tolist().index(min(jaraktranspos[i]))
+        klaster.append([titik[i][0],titik[i][1],jarakmin])
 
-klaster = []
-for i in range (len(jarak[0])):
-    klaster.append([titik[i][0],titik[i][1],[jarak[0][i],jarak[1][i]].index(min([jarak[0][i],jarak[1][i]]))])
-print (klaster)
+    upil = [[0,0] for i in range(len(centroid))]
+    jumlah = [0] * len(centroid)
+    #kan gua bantuin klo bingung, wkwk
+    for i in range(len(klaster)):
+        kelompoktitik = klaster[i]
+        upil[kelompoktitik[2]][0] += kelompoktitik[0]
+        upil[kelompoktitik[2]][1] += kelompoktitik[1]
+        jumlah[kelompoktitik[2]] += 1
 
-#     sse.append(min(jarak[i],jarak[i+1]))
-# print(sse)
-# print(sum(sse))
-#     jSSE.append(sum(sse))
-# print(jSSE)
-# print(min(jSSE))
-    # print(min(sum(sse)))
-# print("Nilai Min SSE dari ",j+1," Percobaan",min(jSSE))
+    titikbaru = []
+    for i in range(len(upil)):
+        if (jumlah[i] > 0):
+            ratarata = np.divide(upil[i],jumlah[i]).tolist()
+            titikbaru.append(ratarata)
+        else:
+            titikbaru.append(centroid[i])
+    centroid = titikbaru
+    print (centroid)
 
-# graf = plt.figure()
-# graf.canvas.set_window_title('Visualisasi Data Training')
-# data = graf.add_subplot(111)
-# data.set_xlabel('Attr 1')
-# data.set_ylabel('Attr 2')
-# data.scatter(x0,y0, c='black', marker='+')
-# plt.show()
+
+
+centroidtranspose = np.transpose(centroid)
+
+graf = plt.figure()
+graf.canvas.set_window_title('Visualisasi Data Training')
+data = graf.add_subplot(111)
+data.set_xlabel('Attr 1')
+data.set_ylabel('Attr 2')
+data.scatter(x0,y0, c='black', marker='+')
+data.scatter(centroidtranspose[0],centroidtranspose[1], c='red', marker='^')
+plt.show()
+
+#ditampilin coba, grafik? iya sama titiknya
+#bingung nampilinnya, wkwk. titik yang mana pat? data trainnya?
